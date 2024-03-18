@@ -1,4 +1,4 @@
-import { ACTION_TYPES, Decisions, Operations } from "../enums";
+import { ACTION_TYPES, Decisions } from "../enums";
 
 // export type OperationsType = {
 //   [key: string]: string;
@@ -9,19 +9,32 @@ import { ACTION_TYPES, Decisions, Operations } from "../enums";
 export type ActionType = {
   type: ACTION_TYPES;
   payload: {
-    number?: number;
-    operation?: keyof typeof Operations;
-    decision?: keyof typeof Decisions;
+    expression?: string;
     theme?: number;
+    decision?: keyof typeof Decisions;
   };
 };
+// export type ActionType = {
+//   type: ACTION_TYPES;
+//   payload: {
+//     number?: number;
+//     operation?: keyof typeof Operations;
+//     decision?: keyof typeof Decisions;
+//     theme?: number;
+//   };
+// };
 export type StateType = {
-  numbers: StateDataType[];
-  operations: StateDataType[];
-  answer: number;
-  memory: "answer" | "number" | "operation";
+  expression: string;
+  memory: string;
   theme: number;
 };
+// export type StateType = {
+//   numbers: StateDataType[];
+//   operations: StateDataType[];
+//   answer: number;
+//   memory: "answer" | "operation" | "number";
+//   theme: number;
+// };
 export type StateDataType = {
   value: number | string;
   position: number;
