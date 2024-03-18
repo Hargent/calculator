@@ -6,8 +6,8 @@ type Props = {
 
 export default function DecisionButton({ decision }: Props) {
   return (
-    <div>
-      <button>{Decisions[decision]}</button>
+    <div className="w-full flex items-center justify-center border">
+      <button className="w-full text-center ">{Decisions[decision]}</button>
     </div>
   );
 }

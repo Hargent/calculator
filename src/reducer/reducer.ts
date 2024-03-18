@@ -8,18 +8,19 @@ export const initialState: StateType = {
   numbers: [],
   operations: [],
   answer: 0,
-  memory: "answer"
+  memory: "answer",
+  theme: 1
 };
 const reducer = (state: StateType, action: ActionType) => {
   switch (action.type) {
     case ACTION_TYPES.SAVE_OPERATION:
       // Handle saving a new operation
       if (!action.payload.operation) {
-        return state; // No operation provided, do nothing
+        return { ...state }; // No operation provided, do nothing
       }
       // Prevent concurrent operation without a value between
       if (state.memory === "operation") {
-        return state;
+        return { ...state };
       }
       return {
         ...state,
@@ -35,7 +36,20 @@ const reducer = (state: StateType, action: ActionType) => {
     case ACTION_TYPES.SAVE_VALUE:
       // Handle saving a new numeric value
       if (!action.payload.number) {
-        return state; // No number provided, do nothing
+        return { ...state }; // No number provided, do nothing
+      }
+      if (state.memory === "number") {
+        const nums = [...state.numbers];
+        const lastNum = nums.pop();
+        const newNum = {
+          value: Number(lastNum?.value ?? 0) * 10 + action.payload.number,
+          ...lastNum
+        };
+        return {
+          ...state,
+          memory: "number",
+          numbers: [...nums, newNum]
+        };
       }
       return {
         ...state,
@@ -48,7 +62,7 @@ const reducer = (state: StateType, action: ActionType) => {
     case ACTION_TYPES.MAKE_DECISION:
       // Handle user decisions (calculate, clear, delete, switch sign)
       if (!action.payload.decision) {
-        return state;
+        return { ...state };
       }
 
       if (Decisions[action.payload.decision] === Decisions.answer) {
@@ -102,11 +116,16 @@ const reducer = (state: StateType, action: ActionType) => {
           answer: -1 * +state.answer
         };
       }
+
       return {
         ...state,
         answer: 0
       };
-
+    case ACTION_TYPES.SWITCH_THEME:
+      return {
+        ...state,
+        theme: action.payload.theme
+      };
     default:
       throw new Error("404 error, No Reducer action type not found!");
   }

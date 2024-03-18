@@ -3,7 +3,8 @@ export enum Operations {
   minus = "-",
   multiply = "x",
   divide = "/",
-  modulo = "%"
+  modulo = "%",
+  decimal = "."
 }
 export enum Decisions {
   answer = "=",
@@ -14,5 +15,6 @@ export enum Decisions {
 export enum ACTION_TYPES {
   SAVE_VALUE = "calculator/save/value",
   SAVE_OPERATION = "calculator/save/operation",
-  MAKE_DECISION = "calculator/make/decision"
+  MAKE_DECISION = "calculator/make/decision",
+  SWITCH_THEME = "calculator/theme/switch"
 }

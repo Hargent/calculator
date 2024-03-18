@@ -6,8 +6,8 @@ type Props = {
 
 export default function OperationButton({ operation }: Props) {
   return (
-    <div>
-      <button>{Operations[operation]}</button>
+    <div className="w-full flex items-center justify-center border">
+      <button className="w-full text-center ">{Operations[operation]}</button>
     </div>
   );
 }
