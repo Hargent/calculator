@@ -24,7 +24,7 @@ export default function ValueButton({ value }: Props) {
       className={`w-full flex items-center justify-center border ${textClass}`}
       onClick={() => handleSaveValue(value.toString())}
     >
-      <button className="w-full text-center h-full">{value}</button>
+      <button className="w-full text-center h-full text-xl">{value}</button>
     </div>
   );
 }

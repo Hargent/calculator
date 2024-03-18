@@ -1,6 +1,7 @@
 import DecisionButton from "../components/decision-button";
 import OperationButton from "../components/operation-button";
 import { THEMES } from "../util";
+import ThemeSwitcher from "../components/theme-switcher";
 import ValueButton from "../components/value-button";
 import { colord } from "colord";
 import { useAppContext } from "../context/use-app-context";
@@ -13,16 +14,22 @@ function App() {
     ? "text-white"
     : "text-black";
 
+  console.log("====================================");
+  console.log(state.theme);
+  console.log("====================================");
   // const display =
   //   state.memory === "answer"
   //     ? `${state.answer}`
   //     : `${calcExpression(state.numbers, state.operations)}`;
 
   return (
-    <div className="w-full h-screen flex items-center justify-center ">
-      <div className=" min-w-[250px] max-w-[600px] w-4/5 bg-red-300 h-[600px] grid grid-rows-7">
+    <div className="w-full h-screen flex items-center flex-col justify-center ">
+      <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-end py-6">
+        <ThemeSwitcher />
+      </div>
+      <div className=" min-w-[250px] max-w-[600px] w-4/5 bg-red-300 h-[600px] grid grid-rows-7 overflow-clip">
         <div
-          className={`bg-red-[${THEMES[state.theme as keyof typeof THEMES].base}] row-span-2 w-full h-full flex items-end justify-end text-[60px] font-light p-2 ${textClass}`}
+          className={`bg-red-[${THEMES[state.theme as keyof typeof THEMES].base}] row-span-2 w-full h-full flex items-end justify-end text-[40px] font-light p-2  flew overflow-hidden text-ellipsis ${textClass}`}
         >
           {state.expression}
         </div>
@@ -56,7 +63,9 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="grid grid-flow-row col-start-4 col-end-5 bg-purple-600  ">
+          <div
+            className={`grid grid-rows-5 col-start-4 col-end-5 bg-[${THEMES[state.theme as keyof typeof THEMES].secondary_button}] `}
+          >
             <OperationButton operation={"divide"} />
             <OperationButton operation={"multiply"} />
             <OperationButton operation="minus" />
