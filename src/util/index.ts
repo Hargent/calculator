@@ -1,22 +1,113 @@
 import BodmasCalculator from "./bodmas";
 import { Operations } from "../shared/enums/index";
 import { StateDataType } from "../shared/types";
-import { colord } from "colord";
 
 export const THEMES = {
   1: {
     base: "rgba(50, 30, 0, 0.8)",
     accent_button: "#ff9f0c",
-    secondary_button: colord("rgba(50, 30, 0, 0.8)").lighten(0.2),
-    button: colord("rgba(50, 30, 0, 0.8)").lighten(0.4)
+    secondary_button: adjustLightness("rgba(50, 30, 0, 0.8)", 20),
+    // secondary_button: colord("rgba(50, 30, 0, 0.8)").lighten(20),
+    button: adjustLightness("rgba(50, 30, 0, 0.8)", 40)
   },
   2: {
     base: "rgba(0, 0, 0, 0.5)",
     accent_button: "#cc0000",
-    secondary_button: colord("rgba(0, 0, 0, 0.5)").lighten(0.2),
-    button: colord("rgba(0, 0, 0, 0.5)").lighten(0.4)
+    secondary_button: adjustLightness("rgba(0, 0, 0, 0.5)", 20),
+    button: adjustLightness("rgba(0, 0, 0, 0.5)", 40)
   }
 };
+function adjustLightness(color: string, lightnessChange: number): string {
+  // Regex to match rgba values
+  const rgbaMatch = color.match(/rgba?\((\d+), (\d+), (\d+), ([\d.]+)\)/);
+
+  if (!rgbaMatch) {
+    throw new Error("Invalid RGBA color format");
+  }
+
+  const red = parseInt(rgbaMatch[1], 10);
+  const green = parseInt(rgbaMatch[2], 10);
+  const blue = parseInt(rgbaMatch[3], 10);
+  const alpha = parseFloat(rgbaMatch[4]);
+
+  // Convert to HSL
+  const hsl = rgbToHsl(red, green, blue);
+
+  // Adjust lightness by percentage
+  hsl[2] = Math.min(100, Math.max(0, hsl[2] + lightnessChange));
+
+  // Convert back to RGBA
+  const rgba = hslToRgb(hsl[0], hsl[1], hsl[2]);
+
+  return `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${alpha})`;
+}
+
+// Helper functions for HSL conversion (replace with your preferred library if available)
+function rgbToHsl(r: number, g: number, b: number): number[] {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  const max = Math.max(r, g, b),
+    min = Math.min(r, g, b);
+  let h, s;
+  const l = (max + min) / 2;
+
+  if (max === min) {
+    h = s = 0; // achromatic
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
+    }
+    h! /= 6;
+  }
+
+  return [h! * 100, s * 100, l * 100];
+}
+
+function hslToRgb(h: number, s: number, l: number): number[] {
+  h = h / 100;
+  s = s / 100;
+  l = l / 100;
+
+  let r, g, b;
+
+  if (s === 0) {
+    r = g = b = l; // achromatic
+  } else {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    h = h + (h < 0 ? 6 : 0);
+    const t = h + 1 / 3;
+    const t3 = t + 1 / 3;
+    const t6 = t - 1 / 3;
+
+    r = colorize(p, q, t6);
+    g = colorize(p, q, t);
+    b = colorize(p, q, t3);
+  }
+
+  return [r * 255, g * 255, b * 255];
+}
+
+function colorize(p: number, q: number, t: number): number {
+  if (t < 0) t += 1;
+  if (t > 1) t -= 1;
+  if (t < 1 / 6) return p + (q - p) * 6 * t;
+  if (t < 1 / 2) return q;
+  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+  return p;
+}
 
 export function calculate({
   numbers,

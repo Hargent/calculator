@@ -18,11 +18,23 @@ const ThemeSwitcher = () => {
       type: ACTION_TYPES.SWITCH_THEME,
       payload: { theme: Number(selectedTheme) }
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTheme]);
 
   return (
     <div className="theme-switcher">
+      <label key={"default-theme"} className="flex items-center mr-4">
+        <input
+          type="radio"
+          id={"0"}
+          name="theme"
+          value={"0"}
+          checked={selectedTheme === "0"}
+          onChange={handleChange}
+          className="mr-2 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        />
+        default
+      </label>
       {Object.keys(THEMES).map((theme) => (
         <label key={theme} className="flex items-center mr-4">
           <input
