@@ -3,9 +3,11 @@ import { FaDivide, FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 
 import { MdOutlinePercent } from "react-icons/md";
 import { useAppContext } from "../../context/use-app-context";
+import { CalculatorButtons } from "../buttons";
 
 type Props = {
   operation: keyof typeof Operations;
+  type: "primary" | "secondary" | "accent";
 };
 const OperationsIcons = {
   plus: <FaPlus size={20} />,
@@ -18,8 +20,8 @@ const OperationsIcons = {
 function Point() {
   return <span className=" font-bold text-xl text-current">.</span>;
 }
-
-export default function OperationButton({ operation }: Props) {
+export default function OperationButton({ operation, type }: Props) {
+  const ButtonComponent = CalculatorButtons[type];
   const { state, handleDispatch } = useAppContext();
 
   function handleSaveOperation(operation: string) {
@@ -36,12 +38,12 @@ export default function OperationButton({ operation }: Props) {
       onClick={() => handleSaveOperation(Operations[operation])}
       // onClick={() => handleSaveOperation(operation)}
     >
-      <button
-        // $themeNo={`${state.theme}`}
+      <ButtonComponent
+        $themeNo={`${state.theme}`}
         className="w-full h-full text-center flex items-center justify-center "
       >
         {OperationsIcons[operation]}
-      </button>
+      </ButtonComponent>
     </div>
   );
 }
