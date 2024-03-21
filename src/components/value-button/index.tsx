@@ -1,17 +1,11 @@
 import { ACTION_TYPES } from "../../shared/enums";
-import { THEMES } from "../../util/index";
-import { colord } from "colord";
+import { generateColorClass } from "../../util/index";
 import { useAppContext } from "../../context/use-app-context";
 
 type Props = { value: number };
 
 export default function ValueButton({ value }: Props) {
   const { state, handleDispatch } = useAppContext();
-  const textClass = colord(
-    THEMES[state.theme as keyof typeof THEMES].base
-  ).isDark()
-    ? "text-white"
-    : "text-black";
 
   function handleSaveValue(value: string) {
     handleDispatch({
@@ -21,10 +15,12 @@ export default function ValueButton({ value }: Props) {
   }
   return (
     <div
-      className={`w-full flex items-center justify-center border ${textClass}`}
+      className={`w-full flex items-center justify-center border ${generateColorClass("text", state.theme, "text-color")}`}
       onClick={() => handleSaveValue(value.toString())}
     >
-      <button className="w-full text-center h-full text-xl">{value}</button>
+      <button className="w-full text-center h-full text-xl text-current">
+        {value}
+      </button>
     </div>
   );
 }

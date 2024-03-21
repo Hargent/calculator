@@ -42,6 +42,13 @@ function adjustLightness(color: string, lightnessChange: number): string {
   return `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${alpha})`;
 }
 
+export function generateColorClass(
+  target: "bg" | "text" | "shadow" | "border",
+  theme: number,
+  complement: string
+) {
+  return ` ${target}-theme-${theme}-${complement}`;
+}
 // Helper functions for HSL conversion (replace with your preferred library if available)
 function rgbToHsl(r: number, g: number, b: number): number[] {
   r /= 255;

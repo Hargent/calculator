@@ -1,41 +1,27 @@
 import DecisionButton from "../components/decision-button";
 import OperationButton from "../components/operation-button";
-import { THEMES } from "../util";
 import ThemeSwitcher from "../components/theme-switcher";
 import ValueButton from "../components/value-button";
-import { colord } from "colord";
+import { generateColorClass } from "../util";
 import { useAppContext } from "../context/use-app-context";
 
 function App() {
   const { state } = useAppContext();
-  const textClass = colord(
-    THEMES[state.theme as keyof typeof THEMES].base
-  ).isDark()
-    ? "text-white"
-    : "text-black";
-
-  console.log("====================================");
-  console.log(THEMES, state.theme);
-  console.log("====================================");
-  // const display =
-  //   state.memory === "answer"
-  //     ? `${state.answer}`
-  //     : `${calcExpression(state.numbers, state.operations)}`;
-
   return (
-    <div className={`theme-${state.theme}`}>
+    // <div className={` bg-theme-1-primary`}>
+    <div className={`${generateColorClass("bg", state.theme, "primary")}`}>
       <div className="w-full h-screen flex items-center flex-col justify-center ">
         <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-end py-6">
           <ThemeSwitcher />
         </div>
-        <div className=" min-w-[250px] max-w-[600px] w-4/5 bg-base h-[600px] grid grid-rows-7 overflow-clip">
+        <div className=" min-w-[250px] max-w-[600px] w-4/5  h-[600px] grid grid-rows-7 overflow-clip">
           <div
-            className={` row-span-2 w-full h-full flex items-end justify-end text-[40px] font-light p-2  flew overflow-hidden text-ellipsis ${textClass}`}
+            className={` row-span-2 w-full h-full flex items-end justify-end text-[40px] font-light p-2  flew overflow-hidden text-ellipsis ${generateColorClass("text", state.theme, "text-color")}`}
           >
             {state.expression}
           </div>
           <div className="grid grid-cols-4 row-start-3 row-end-8">
-            <div className="grid grid-rows-5 col-span-3 bg-[var(--button)]">
+            <div className="grid grid-rows-5 col-span-3 ">
               <div className=" grid grid-cols-3 row-span-1  ">
                 <DecisionButton decision="clear" />
                 <DecisionButton decision="switch" />
@@ -64,9 +50,7 @@ function App() {
                 </div>
               </div>
             </div>
-            <div
-              className={`grid grid-rows-5 col-start-4 col-end-5 bg-[var(--secondary_button)] `}
-            >
+            <div className={`grid grid-rows-5 col-start-4 col-end-5  `}>
               <OperationButton operation={"divide"} />
               <OperationButton operation={"multiply"} />
               <OperationButton operation="minus" />
