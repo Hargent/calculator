@@ -24,10 +24,10 @@ function App() {
         <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-end py-6">
           <ThemeSwitcher />
         </div>
-        <div className=" min-w-[250px] max-w-[600px] w-4/5  h-[600px] grid grid-rows-7 overflow-clip">
+        <div className=" min-w-[250px] max-w-[600px] w-4/5  h-[600px] grid grid-rows-7 overflow-clip px-2">
           <CalcDisplay
             $themeNo={`${state.theme}`}
-            className={` row-span-2 w-full h-full flex items-end justify-end text-[40px] font-light p-2  flew overflow-hidden text-ellipsis text-white `}
+            className={` row-span-2 w-full  text-[60px] font-light p-2 overflow-hidden text-wrap text-white text-end flex items-end justify-end`}
           >
             {state.expression}
           </CalcDisplay>

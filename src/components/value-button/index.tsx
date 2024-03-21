@@ -24,12 +24,12 @@ export default function ValueButton({ value, type }: Props) {
 
   return (
     <div
-      className={`w-full flex items-center justify-center border `}
+      className={`w-full flex items-center justify-center border cursor-pointer `}
       onClick={() => handleSaveValue(value.toString())}
     >
       <ButtonComponent
         $themeNo={`${state.theme}`}
-        className={`w-full text-center h-full text-xl`}
+        className={`w-full text-center h-full`}
       >
         {value}
       </ButtonComponent>

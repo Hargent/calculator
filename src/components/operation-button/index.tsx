@@ -34,13 +34,13 @@ export default function OperationButton({ operation, type }: Props) {
   console.log();
   return (
     <div
-      className={`w-full flex items-center justify-center border `}
+      className={`w-full flex items-center justify-center border cursor-pointer `}
       onClick={() => handleSaveOperation(Operations[operation])}
       // onClick={() => handleSaveOperation(operation)}
     >
       <ButtonComponent
         $themeNo={`${state.theme}`}
-        className="w-full h-full text-center flex items-center justify-center "
+        className="w-full h-full text-center flex items-center justify-center"
       >
         {OperationsIcons[operation]}
       </ButtonComponent>

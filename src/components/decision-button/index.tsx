@@ -29,7 +29,7 @@ export default function DecisionButton({ decision, type }: Props) {
 
   return (
     <div
-      className={`w-full flex items-center justify-center border `}
+      className={`w-full flex items-center justify-center border cursor-pointer `}
       onClick={() => handleMakeDecision(decision)}
     >
       <ButtonComponent

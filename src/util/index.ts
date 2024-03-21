@@ -44,7 +44,15 @@ export function adjustLightness(
 
   return `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${alpha})`;
 }
-
+export const isLightColor = (color: string) => {
+  // Calculate lightness using HSL conversion (more accurate)
+  // You might need to adjust the threshold value based on your colors
+  const hsl = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-1.]+))?\)/);
+  if (!hsl) return false;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [h, s, l, a] = hsl.map(Number);
+  return (l + s) / 2 > 128; // Threshold for light colors
+};
 export function generateColorClass(
   target: "bg" | "text" | "shadow" | "border",
   theme: number,
