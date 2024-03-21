@@ -18,6 +18,7 @@ const OperationsIcons = {
 function Point() {
   return <span className=" font-bold text-xl text-current">.</span>;
 }
+
 export default function OperationButton({ operation }: Props) {
   const { state, handleDispatch } = useAppContext();
 
@@ -27,16 +28,18 @@ export default function OperationButton({ operation }: Props) {
       payload: { expression: operation }
     });
   }
-  console.log("====================================");
   console.log(state);
-  console.log("====================================");
+  console.log();
   return (
     <div
       className={`w-full flex items-center justify-center border `}
       onClick={() => handleSaveOperation(Operations[operation])}
       // onClick={() => handleSaveOperation(operation)}
     >
-      <button className="w-full h-full text-center flex items-center justify-center ">
+      <button
+        // $themeNo={`${state.theme}`}
+        className="w-full h-full text-center flex items-center justify-center "
+      >
         {OperationsIcons[operation]}
       </button>
     </div>

@@ -1,10 +1,24 @@
+import styled from "styled-components";
 import DecisionButton from "../components/decision-button";
 import OperationButton from "../components/operation-button";
 import ThemeSwitcher from "../components/theme-switcher";
 import ValueButton from "../components/value-button";
 
 import { useAppContext } from "../context/use-app-context";
+import { DefaultTheme } from "styled-components";
+import { css } from "styled-components";
+interface OperationDivProps {
+  readonly $themeNo: string;
+}
+const OperationDiv = styled.div<OperationDivProps & DefaultTheme>`
+  ${({ theme, $themeNo }) => css`
+    background-color: ${theme[$themeNo].accent_button};
 
+    &:hover {
+      background-color: ${theme[$themeNo].accent_button};
+    }
+  `};
+`;
 function App() {
   const { state } = useAppContext();
   return (
@@ -50,13 +64,16 @@ function App() {
                 </div>
               </div>
             </div>
-            <div className={`grid grid-rows-5 col-start-4 col-end-5  `}>
+            <OperationDiv
+              $themeNo={`${state.theme}`}
+              className={`grid grid-rows-5 col-start-4 col-end-5  `}
+            >
               <OperationButton operation={"divide"} />
               <OperationButton operation={"multiply"} />
               <OperationButton operation="minus" />
               <OperationButton operation="plus" />
               <DecisionButton decision="answer" />
-            </div>
+            </OperationDiv>
           </div>
         </div>
       </div>

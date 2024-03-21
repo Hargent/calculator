@@ -17,7 +17,10 @@ export const THEMES = {
     button: adjustLightness("rgba(0, 0, 0, 0.5)", 40)
   }
 };
-function adjustLightness(color: string, lightnessChange: number): string {
+export function adjustLightness(
+  color: string,
+  lightnessChange: number
+): string {
   // Regex to match rgba values
   const rgbaMatch = color.match(/rgba?\((\d+), (\d+), (\d+), ([\d.]+)\)/);
 
