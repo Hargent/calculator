@@ -3,7 +3,6 @@ import { ACTION_TYPES, Decisions } from "../../shared/enums";
 import { BsPlusSlashMinus } from "react-icons/bs";
 import { FaEquals } from "react-icons/fa";
 import { TbHttpDelete } from "react-icons/tb";
-import { generateColorClass } from "../../util";
 import { useAppContext } from "../../context/use-app-context";
 
 type Props = {
@@ -25,9 +24,12 @@ export default function DecisionButton({ decision }: Props) {
       payload: { decision: decision }
     });
   }
+  console.log("====================================");
+  console.log(state);
+  console.log("====================================");
   return (
     <div
-      className={`w-full flex items-center justify-center border ${generateColorClass("text", state.theme, "text-color")}`}
+      className={`w-full flex items-center justify-center border `}
       onClick={() => handleMakeDecision(decision)}
     >
       <button className="w-full text-center flex items-center justify-center text-lg">

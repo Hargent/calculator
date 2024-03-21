@@ -2,21 +2,21 @@ import DecisionButton from "../components/decision-button";
 import OperationButton from "../components/operation-button";
 import ThemeSwitcher from "../components/theme-switcher";
 import ValueButton from "../components/value-button";
-import { generateColorClass } from "../util";
+
 import { useAppContext } from "../context/use-app-context";
 
 function App() {
   const { state } = useAppContext();
   return (
     // <div className={` bg-theme-1-primary`}>
-    <div className={`${generateColorClass("bg", state.theme, "primary")}`}>
+    <div className={``}>
       <div className="w-full h-screen flex items-center flex-col justify-center ">
         <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-end py-6">
           <ThemeSwitcher />
         </div>
         <div className=" min-w-[250px] max-w-[600px] w-4/5  h-[600px] grid grid-rows-7 overflow-clip">
           <div
-            className={` row-span-2 w-full h-full flex items-end justify-end text-[40px] font-light p-2  flew overflow-hidden text-ellipsis ${generateColorClass("text", state.theme, "text-color")}`}
+            className={` row-span-2 w-full h-full flex items-end justify-end text-[40px] font-light p-2  flew overflow-hidden text-ellipsis `}
           >
             {state.expression}
           </div>

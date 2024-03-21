@@ -2,7 +2,6 @@ import { ACTION_TYPES, Operations } from "../../shared/enums";
 import { FaDivide, FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 
 import { MdOutlinePercent } from "react-icons/md";
-import { generateColorClass } from "../../util";
 import { useAppContext } from "../../context/use-app-context";
 
 type Props = {
@@ -28,9 +27,12 @@ export default function OperationButton({ operation }: Props) {
       payload: { expression: operation }
     });
   }
+  console.log("====================================");
+  console.log(state);
+  console.log("====================================");
   return (
     <div
-      className={`w-full flex items-center justify-center border ${generateColorClass("text", state.theme, "text-color")}`}
+      className={`w-full flex items-center justify-center border `}
       onClick={() => handleSaveOperation(Operations[operation])}
       // onClick={() => handleSaveOperation(operation)}
     >

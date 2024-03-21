@@ -1,5 +1,4 @@
 import { ACTION_TYPES } from "../../shared/enums";
-import { generateColorClass } from "../../util/index";
 import { useAppContext } from "../../context/use-app-context";
 
 type Props = { value: number };
@@ -13,12 +12,13 @@ export default function ValueButton({ value }: Props) {
       payload: { expression: value }
     });
   }
+  console.log(state);
   return (
     <div
-      className={`w-full flex items-center justify-center border ${generateColorClass("text", state.theme, "text-color")}`}
+      className={`w-full flex items-center justify-center border `}
       onClick={() => handleSaveValue(value.toString())}
     >
-      <button className="w-full text-center h-full text-xl text-current">
+      <button className={`w-full text-center h-full text-xl text-current `}>
         {value}
       </button>
     </div>
