@@ -36,7 +36,7 @@ function App() {
   return (
     // <div className={` bg-theme-1-primary`}>
     <div className={` py-6 `}>
-      <div className="w-full h-screen flex items-center flex-col justify-center ">
+      <div className="w-full h-screen flex items-center flex-col justify-center overflow-y-auto">
         <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-between p-6">
           <div className="flex items-center justify-start w-full">
             <button
@@ -51,7 +51,7 @@ function App() {
         <div className=" min-w-[250px] max-w-[600px] w-4/5  h-[600px] grid grid-rows-7 overflow-clip px-2">
           <CalcDisplay
             $themeNo={`${state.theme}`}
-            className={` row-span-2 w-full  text-[60px] font-light p-2 overflow-hidden text-wrap text-white text-end flex items-end justify-end gap-2`}
+            className={` row-span-2 w-full  text-[30px] xl:text-[60px] font-light p-2 overflow-hidden text-wrap text-white text-end flex items-end justify-end gap-2`}
           >
             {state.expression}
             {state.memory !== "answer" && <BlinkingCursor />}
