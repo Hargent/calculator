@@ -35,7 +35,7 @@ function App() {
   }
   return (
     // <div className={` bg-theme-1-primary`}>
-    <div className={``}>
+    <div className={` py-6 `}>
       <div className="w-full h-screen flex items-center flex-col justify-center ">
         <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-between p-6">
           <div className="flex items-center justify-start w-full">
