@@ -26,7 +26,7 @@ const ThemeSwitcher = () => {
       {Object.keys(THEMES).map((theme) => (
         <label
           key={theme}
-          className="flex items-center mr-4 font-semibold text-2xl cursor-pointer"
+          className="flex items-center mr-4 font-semibold text-lg xl:text-2xl cursor-pointer"
         >
           <input
             type="radio"
