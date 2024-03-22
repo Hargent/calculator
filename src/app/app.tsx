@@ -51,7 +51,7 @@ function App() {
             $themeNo={`${state.theme}`}
             className={` row-span-2 w-full  text-[60px] font-light p-2 overflow-hidden text-wrap text-white text-end flex items-end justify-end`}
           >
-            {state.expression}
+            {state.expression}{state.memory!=="answer"&&<span className="animate-pulse">|</span>}
           </CalcDisplay>
           <div className="grid grid-cols-4 row-start-3 row-end-8">
             <div className="grid grid-rows-5 col-span-3 ">
