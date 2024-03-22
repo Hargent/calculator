@@ -39,7 +39,7 @@ function App() {
           <div className="flex items-center justify-start w-full">
             <button
               onClick={handleExponential}
-              className="font-bold px-12 py-[0.25rem] rounded-[50rem]  bg-black text-white text-[40px] flex items-center justify-center italic"
+              className="font-bold px-4 sm:px-6 xl:px-12 py-[0.25rem] rounded-[50rem]  bg-black text-white text-[1rem] sm:text-[25px] xl:text-[40px] flex items-center justify-center italic"
             >
               e
             </button>
