@@ -12,6 +12,8 @@ export type ActionType = {
     expression?: string;
     theme?: number;
     decision?: keyof typeof Decisions;
+    exponential?: boolean;
+    decimal?: boolean;
   };
 };
 // export type ActionType = {
@@ -27,6 +29,8 @@ export type StateType = {
   expression: string;
   memory: string;
   theme: number;
+  exponential: boolean;
+  decimal: false;
 };
 // export type StateType = {
 //   numbers: StateDataType[];

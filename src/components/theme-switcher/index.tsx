@@ -22,9 +22,12 @@ const ThemeSwitcher = () => {
   }, [selectedTheme]);
 
   return (
-    <div className="theme-switcher">
+    <div className="w-full flex flex-col items-end justify-end">
       {Object.keys(THEMES).map((theme) => (
-        <label key={theme} className="flex items-center mr-4">
+        <label
+          key={theme}
+          className="flex items-center mr-4 font-semibold text-2xl cursor-pointer"
+        >
           <input
             type="radio"
             id={theme}
@@ -32,7 +35,7 @@ const ThemeSwitcher = () => {
             value={theme}
             checked={selectedTheme === theme}
             onChange={handleChange}
-            className="mr-2 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="mr-2 focus:ring-4 focus:ring-offset-4 focus:ring-indigo-500"
           />
           Theme {theme}
         </label>

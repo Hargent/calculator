@@ -1,3 +1,4 @@
+/* eslint-disable no-unexpected-multiline */
 import { ACTION_TYPES, Decisions } from "../shared/enums";
 import { ActionType, StateType } from "../shared/types";
 import { toStandardForm } from "../util";
@@ -8,7 +9,9 @@ import BodmasCalculator from "../util/bodmas";
 export const initialState: StateType = {
   expression: "0",
   memory: "answer",
-  theme: 1
+  theme: 1,
+  exponential: false,
+  decimal: false
 };
 const reducer = (state: StateType, action: ActionType) => {
   switch (action.type) {
@@ -93,6 +96,7 @@ const reducer = (state: StateType, action: ActionType) => {
       if (state.expression === "0" && action.payload.expression === "-") {
         return {
           ...state,
+          exponential: false,
           memory: "operation",
           expression: "-"
         };
@@ -102,8 +106,11 @@ const reducer = (state: StateType, action: ActionType) => {
         action.payload.expression === "."
       ) {
         if (
-          `${state.expression}${action.payload.expression}`.split("").length >=
-          18
+          `${state.expression}${action.payload.expression}`.split(" ")[
+            // eslint-disable-next-line no-unexpected-multiline
+            `${state.expression}${action.payload.expression}`.split(" ")
+              .length - 1
+          ].split("").length >= 18
         ) {
           return { ...state };
         }
@@ -111,8 +118,11 @@ const reducer = (state: StateType, action: ActionType) => {
         return {
           ...state,
           memory: "number",
+
           expression:
-            state.memory === "answer" && action.payload.expression !== "."
+            state.memory === "answer" &&
+            action.payload.expression !== "." &&
+            !state.expression.split(" ").pop()?.split("").includes(".")
               ? `${action.payload.expression}`
               : `${[...(state.expression?.split("") ?? [state.expression])].pop() === "" ? `${state.expression}0` : state.expression}${action.payload.expression}`
         };
@@ -138,15 +148,22 @@ const reducer = (state: StateType, action: ActionType) => {
           return {
             ...state,
             memory: "number",
+
             expression: `${state.expression}${action.payload.expression}`
           };
         } else if (
           action.payload.expression === "-" &&
-          state.memory === "operation"
+          state.memory === "operation" &&
+          state.expression.split("")[state.expression.split("").length - 1] !==
+            "-"
         ) {
           return {
             ...state,
+            exponential: false,
+            decimal: false,
+
             memory: "operation",
+
             expression: `${state.expression}${action.payload.expression}`
           };
         } else {
@@ -158,6 +175,8 @@ const reducer = (state: StateType, action: ActionType) => {
           return {
             ...state,
             memory: "operation",
+            exponential: false,
+            decimal: false,
             expression: `${state.expression} ${action.payload.expression} `
           };
         }
@@ -167,6 +186,43 @@ const reducer = (state: StateType, action: ActionType) => {
       return {
         ...state,
         theme: action.payload.theme
+      };
+    case ACTION_TYPES.EXPONENTIAL:
+      if (state.exponential) return { ...state };
+      if (
+        !Number(
+          state.expression.split("")[state.expression.split("").length - 1]
+        )
+      )
+        return { ...state };
+      return {
+        ...state,
+        memory: "operation",
+        exponential: action.payload.exponential,
+        expression: `${state.expression}e`
+      };
+    case ACTION_TYPES.DECIMAL:
+      if (state.decimal) return { ...state };
+      if (state.expression === "0")
+        return {
+          ...state,
+          memory: "operation",
+          decimal: action.payload.decimal,
+          expression: `0.`
+        };
+      if (
+        !Number(
+          state.expression.split("")[state.expression.split("").length - 1]
+        ) &&
+        state.expression.split("")[state.expression.split("").length - 1] !==
+          "0"
+      )
+        return { ...state };
+      return {
+        ...state,
+        memory: "operation",
+        decimal: action.payload.decimal,
+        expression: `${state.expression}.`
       };
     default:
       throw new Error("404 error, No Reducer action type not found!");

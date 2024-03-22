@@ -7,6 +7,8 @@ import ValueButton from "../components/value-button";
 import { useAppContext } from "../context/use-app-context";
 import { css } from "styled-components";
 import { DefaultTheme } from "styled-components";
+import { ACTION_TYPES } from "../shared/enums";
+import { CalculatorButtons } from "../components/buttons";
 interface DisplayProps {
   readonly $themeNo: string;
 }
@@ -16,12 +18,32 @@ const CalcDisplay = styled.div<DisplayProps & DefaultTheme>`
   `};
 `;
 function App() {
-  const { state } = useAppContext();
+  const { state, handleDispatch } = useAppContext();
+  function handleExponential() {
+    handleDispatch({
+      type: ACTION_TYPES.EXPONENTIAL,
+      payload: { exponential: true }
+    });
+  }
+  function handleDecimal() {
+    handleDispatch({
+      type: ACTION_TYPES.DECIMAL,
+      payload: { decimal: true }
+    });
+  }
   return (
     // <div className={` bg-theme-1-primary`}>
     <div className={``}>
       <div className="w-full h-screen flex items-center flex-col justify-center ">
-        <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-end py-6">
+        <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-between p-6">
+          <div className="flex items-center justify-start w-full">
+            <button
+              onClick={handleExponential}
+              className="w-20 h-12 font-bold p-2 rounded-[50rem]  bg-black text-white text-[40px] flex items-center justify-center italic"
+            >
+              e
+            </button>
+          </div>
           <ThemeSwitcher />
         </div>
         <div className=" min-w-[250px] max-w-[600px] w-4/5  h-[600px] grid grid-rows-7 overflow-clip px-2">
@@ -57,7 +79,18 @@ function App() {
                 <div className="grid grid-cols-3  ">
                   <ValueButton type="primary" value={0} />
                   <DecisionButton type="primary" decision="delete" />
-                  <OperationButton type="primary" operation="decimal" />
+
+                  <div
+                    className={`w-full flex items-center justify-center border cursor-pointer h-full `}
+                    onClick={handleDecimal}
+                  >
+                    <CalculatorButtons.primary
+                      $themeNo={`${state.theme}`}
+                      className="w-full h-full text-center flex items-center justify-center"
+                    >
+                      .
+                    </CalculatorButtons.primary>
+                  </div>
                 </div>
               </div>
             </div>
