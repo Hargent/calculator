@@ -35,8 +35,8 @@ function App() {
   }
   return (
     // <div className={` bg-theme-1-primary`}>
-    <div className={` py-6 `}>
-      <div className="w-full h-screen flex items-center flex-col justify-center overflow-y-auto">
+    <div className={``}>
+      <div className="w-full h-screen flex items-center flex-col justify-center overflow-y-auto  py-6 ">
         <div className=" min-w-[250px] max-w-[600px] w-4/5 flex items-end justify-between p-6">
           <div className="flex items-center justify-start w-full">
             <button
@@ -48,7 +48,7 @@ function App() {
           </div>
           <ThemeSwitcher />
         </div>
-        <div className=" min-w-[250px] max-w-[600px] w-4/5  h-[600px] grid grid-rows-7 overflow-clip px-2">
+        <div className=" min-w-[250px] max-w-[600px] w-4/5  h-4/5  max-h-[600px] grid grid-rows-7 overflow-clip px-2">
           <CalcDisplay
             $themeNo={`${state.theme}`}
             className={` row-span-2 w-full  text-[30px] xl:text-[60px] font-light p-2 overflow-hidden text-wrap text-white text-end flex items-end justify-end gap-2`}
