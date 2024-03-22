@@ -44,6 +44,12 @@ export function adjustLightness(
 
   return `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${alpha})`;
 }
+export function toStandardForm(number: number): string {
+  if (`${number}`.length <= 7) return `${number}`;
+  const exponent = Math.floor(Math.log10(Math.abs(number)));
+  const significantDigits = (number / Math.pow(10, exponent)).toFixed(2);
+  return `${significantDigits}e${exponent}`;
+}
 export const isLightColor = (color: string) => {
   // Calculate lightness using HSL conversion (more accurate)
   // You might need to adjust the threshold value based on your colors

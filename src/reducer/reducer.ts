@@ -1,5 +1,6 @@
 import { ACTION_TYPES, Decisions } from "../shared/enums";
 import { ActionType, StateType } from "../shared/types";
+import { toStandardForm } from "../util";
 
 import BodmasCalculator from "../util/bodmas";
 
@@ -26,7 +27,7 @@ const reducer = (state: StateType, action: ActionType) => {
         return {
           ...state,
           memory: "answer",
-          expression: `${answer}`
+          expression: `${toStandardForm(answer)}`
         };
       }
 
@@ -43,7 +44,6 @@ const reducer = (state: StateType, action: ActionType) => {
           ...(state.expression?.split(" ") ?? [state.expression])
         ];
 
-        console.log(newExpression);
         const lastExp = newExpression.pop();
         const isNumber = Number(lastExp);
         const toDelete = lastExp?.split("");
@@ -82,6 +82,14 @@ const reducer = (state: StateType, action: ActionType) => {
         answer: 0
       };
     case ACTION_TYPES.SAVE_EXPRESSION:
+      if (
+        `${state.expression}${action.payload.expression}`.split("").length > 36
+      ) {
+        return { ...state }; // Prevent exceeding limit
+      }
+
+      // Enforce value length limit (18 digits)
+
       if (state.expression === "0" && action.payload.expression === "-") {
         return {
           ...state,
@@ -93,8 +101,15 @@ const reducer = (state: StateType, action: ActionType) => {
         Number(action.payload.expression) ||
         action.payload.expression === "."
       ) {
+        if (
+          `${state.expression}${action.payload.expression}`.split("").length >=
+          18
+        ) {
+          return { ...state };
+        }
+
         return {
-          ...state,
+          ...state,s
           memory: "number",
           expression:
             state.memory === "answer" && action.payload.expression !== "."
@@ -114,6 +129,12 @@ const reducer = (state: StateType, action: ActionType) => {
           state.expression !== "0" &&
           action.payload.expression === "0"
         ) {
+          if (
+            `${state.expression}${action.payload.expression}`.split("").length >
+            18
+          ) {
+            return { ...state };
+          }
           return {
             ...state,
             memory: "number",

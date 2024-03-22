@@ -30,8 +30,7 @@ export default function OperationButton({ operation, type }: Props) {
       payload: { expression: operation }
     });
   }
-  console.log(state);
-  console.log();
+
   return (
     <div
       className={`w-full flex items-center justify-center border cursor-pointer `}
