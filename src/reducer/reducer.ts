@@ -109,7 +109,7 @@ const reducer = (state: StateType, action: ActionType) => {
         }
 
         return {
-          ...state,s
+          ...state,
           memory: "number",
           expression:
             state.memory === "answer" && action.payload.expression !== "."
