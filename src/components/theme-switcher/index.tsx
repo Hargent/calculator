@@ -37,7 +37,7 @@ const ThemeSwitcher = () => {
             onChange={handleChange}
             className="mr-2 focus:ring-4 focus:ring-offset-4 focus:ring-indigo-500"
           />
-          Theme {theme}
+          {theme === "1" ? "Light" : "Dark"}
         </label>
       ))}
     </div>

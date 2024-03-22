@@ -9,7 +9,7 @@ import { css } from "styled-components";
 import { DefaultTheme } from "styled-components";
 import { ACTION_TYPES } from "../shared/enums";
 import { CalculatorButtons } from "../components/buttons";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface DisplayProps {
   readonly $themeNo: string;
@@ -51,9 +51,10 @@ function App() {
         <div className=" min-w-[250px] max-w-[600px] w-4/5  h-[600px] grid grid-rows-7 overflow-clip px-2">
           <CalcDisplay
             $themeNo={`${state.theme}`}
-            className={` row-span-2 w-full  text-[60px] font-light p-2 overflow-hidden text-wrap text-white text-end flex items-end justify-end`}
+            className={` row-span-2 w-full  text-[60px] font-light p-2 overflow-hidden text-wrap text-white text-end flex items-end justify-end gap-2`}
           >
-            {state.expression}{state.memory!=="answer"&&<BlinkingCursor/>}
+            {state.expression}
+            {state.memory !== "answer" && <BlinkingCursor />}
           </CalcDisplay>
           <div className="grid grid-cols-4 row-start-3 row-end-8">
             <div className="grid grid-rows-5 col-span-3 ">
@@ -112,7 +113,6 @@ function App() {
 
 export default App;
 
-
 const BlinkingCursor: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -126,7 +126,11 @@ const BlinkingCursor: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  return <span className={`h-6 w-0.5 bg-black ${isVisible ? 'opacity-100' : 'opacity-0'}`} />;
+  return (
+    <span
+      className={` w-0.5 bg-white ${isVisible ? "opacity-100" : "opacity-0"}`}
+    >
+      &nbsp;
+    </span>
+  );
 };
-
-export default BlinkingCursor;
