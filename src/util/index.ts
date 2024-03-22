@@ -56,7 +56,7 @@ export const isLightColor = (color: string) => {
   const hsl = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-1.]+))?\)/);
   if (!hsl) return false;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [h, s, l, a] = hsl.map(Number);
+  const [_, s, l, __] = hsl.map(Number);
   return (l + s) / 2 > 128; // Threshold for light colors
 };
 export function generateColorClass(
