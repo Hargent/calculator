@@ -129,4 +129,4 @@ const BlinkingCursor: React.FC = () => {
   return <span className={`h-6 w-0.5 bg-black ${isVisible ? 'opacity-100' : 'opacity-0'}`} />;
 };
 
-export default BlinkingCursor;
+
