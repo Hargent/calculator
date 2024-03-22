@@ -22,7 +22,7 @@ const reducer = (state: StateType, action: ActionType) => {
       }
 
       if (Decisions[action.payload.decision] === Decisions.answer) {
-        if (state.memory === "answer") {
+        if (state.memory !== "number") {
           return { ...state };
         }
         // Calculate answer based on stored numbers and operations
@@ -102,7 +102,7 @@ const reducer = (state: StateType, action: ActionType) => {
         };
       }
       if (
-        Number(action.payload.expression) ||
+        !isNaN(Number(action.payload.expression)) ||
         action.payload.expression === "."
       ) {
         if (
@@ -120,10 +120,10 @@ const reducer = (state: StateType, action: ActionType) => {
           memory: "number",
 
           expression:
-            state.memory === "answer" &&
-            action.payload.expression !== "." &&
-            !state.expression.split(" ").pop()?.split("").includes(".")
-              ? `${action.payload.expression}`
+            state.memory === "answer" && action.payload.expression !== "."
+              ? // !state.expression.split(" ").pop()?.split("").includes(".")
+
+                `${action.payload.expression}`
               : `${[...(state.expression?.split("") ?? [state.expression])].pop() === "" ? `${state.expression}0` : state.expression}${action.payload.expression}`
         };
       } else {
