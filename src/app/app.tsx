@@ -9,6 +9,8 @@ import { css } from "styled-components";
 import { DefaultTheme } from "styled-components";
 import { ACTION_TYPES } from "../shared/enums";
 import { CalculatorButtons } from "../components/buttons";
+import React, { useState, useEffect } from 'react';
+
 interface DisplayProps {
   readonly $themeNo: string;
 }
@@ -51,7 +53,7 @@ function App() {
             $themeNo={`${state.theme}`}
             className={` row-span-2 w-full  text-[60px] font-light p-2 overflow-hidden text-wrap text-white text-end flex items-end justify-end`}
           >
-            {state.expression}{state.memory!=="answer"&&<span className="animate-pulse">|</span>}
+            {state.expression}{state.memory!=="answer"&&<BlinkingCursor/>}
           </CalcDisplay>
           <div className="grid grid-cols-4 row-start-3 row-end-8">
             <div className="grid grid-rows-5 col-span-3 ">
@@ -109,3 +111,22 @@ function App() {
 }
 
 export default App;
+
+
+const BlinkingCursor: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    // Toggle cursor visibility every 500 milliseconds
+    const intervalId = setInterval(() => {
+      setIsVisible((prevVisible) => !prevVisible);
+    }, 500);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return <span className={`h-6 w-0.5 bg-black ${isVisible ? 'opacity-100' : 'opacity-0'}`} />;
+};
+
+export default BlinkingCursor;
