@@ -50,7 +50,7 @@ To run the calculator locally:
 
 1. Clone this repository.
    ```bash
-   git clone https://github.com/Hargent/calculator
+   git clone [https://github.com/Hargent/calculator](https://github.com/Hargent/calculator.git)
    cd calculator
 2. Install dependencies.
    ```bash
