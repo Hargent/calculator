@@ -1,7 +1,7 @@
 <h1 align="center" id="title">Simple Calculator</h1>
 
 
-<p align="center">![image](https://github.com/Hargent/calculator/assets/94790646/a908b7cb-e446-4d2b-a3dc-887d93c04a7c)</p>
+<p align="center"><img src="https://github.com/Hargent/calculator/assets/94790646/a908b7cb-e446-4d2b-a3dc-887d93c04a7c" alt="Calculator" /></p>
 
 <p id="description">This is a basic calculator application built with modern web technologies and using the Shunting Yard algorithm to carry out calculations. It supports the following operations:
 
@@ -50,7 +50,7 @@ To run the calculator locally:
 
 1. Clone this repository.
    ```bash
-   git clone [<repository_url>](https://github.com/Hargent/calculator)
+   git clone https://github.com/Hargent/calculator
    cd calculator
 2. Install dependencies.
    ```bash
